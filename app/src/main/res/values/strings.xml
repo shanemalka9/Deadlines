@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Deadlines</string>
+    <string name="title_activity_loging_screen">logingScreen</string>
 </resources>
