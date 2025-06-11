@@ -112,7 +112,7 @@ fun TextBox(
     onTextChange: (String) -> Unit
 ) {
     Box(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(0.7f),
         contentAlignment = Alignment.Center
     ) {
         OutlinedTextField(
@@ -160,7 +160,7 @@ fun LoginScreenButton(
     Button(
         onClick = onClick, // OnClick is executed
         modifier = modifier
-            .fillMaxWidth(0.8f)
+            .fillMaxWidth(0.7f)
             .height(52.dp),
         shape = RoundedCornerShape(
                     topStart = 0.dp,

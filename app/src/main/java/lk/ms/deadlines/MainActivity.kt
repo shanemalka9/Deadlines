@@ -14,6 +14,7 @@ import lk.ms.deadlines.ui.home.HomeScreen
 import lk.ms.deadlines.ui.login.LoginScreen
 
 class MainActivity : ComponentActivity() {
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
