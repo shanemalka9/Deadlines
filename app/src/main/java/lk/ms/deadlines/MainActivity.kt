@@ -4,21 +4,36 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import lk.ms.deadlines.ui.login.LoginPage
+import androidx.compose.runtime.Composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import lk.ms.deadlines.ui.home.HomeScreen
+import lk.ms.deadlines.ui.login.LoginScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            LoginPage()
+            MainNavigation()
         }
     }
 }
 
-
-
-
-
-
-
+@Composable
+fun MainNavigation() {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "login") {
+        composable("login") {
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate("home")
+                }
+            )
+        }
+        composable("home") {
+            HomeScreen()
+        }
+    }
+}

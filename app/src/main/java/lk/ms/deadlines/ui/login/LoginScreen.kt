@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -36,7 +35,7 @@ import lk.ms.deadlines.R
 
 
 @Composable
-fun LoginPage() {
+fun LoginScreen(onLoginSuccess: () -> Unit) {
     var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
 
@@ -80,7 +79,7 @@ fun LoginPage() {
 
         LoginScreenButton(
             text = "Login",
-            onClick = { /* Handle login click */ },
+            onClick = {onLoginSuccess()},
         )
         Spacer(modifier = Modifier.height(10.dp))
         LoginScreenButton(
@@ -116,7 +115,6 @@ fun TextBox(
             onValueChange = onTextChange,
             label = { Text(text) },
             singleLine = true,
-            modifier = Modifier.fillMaxWidth(0.8f),
             shape = RoundedCornerShape(
                 topStart = 0.dp,
                 topEnd = 25.dp,
@@ -134,6 +132,7 @@ fun TextBox(
                 focusedTextColor = Color(0xFF000000),
                 unfocusedTextColor = Color(0xFF000000)
             ),
+
             textStyle = LocalTextStyle.current.copy(fontSize = 18.sp)
         )
     }
@@ -187,7 +186,7 @@ fun LoginScreenButton(
 @Preview(showBackground = true)
 @Composable
 fun LoginPagePreview() {
-    LoginPage()
+    LoginScreen(onLoginSuccess = {
+        /*Placeholder*/
+    })
 }
-
-// test comment
