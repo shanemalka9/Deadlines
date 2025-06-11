@@ -23,16 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import lk.ms.deadlines.ui.login.LoginPage
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomePage(){
+fun HomeScreen(){
     Spacer(modifier = Modifier.height(10.dp))
     EventIndicator("event1","low","30 days left",{/*wde*/})
     Spacer(modifier = Modifier.height(10.dp))
