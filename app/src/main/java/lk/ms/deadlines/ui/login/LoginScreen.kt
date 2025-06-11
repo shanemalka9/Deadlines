@@ -1,5 +1,7 @@
 package lk.ms.deadlines.ui.login
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,8 +34,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import lk.ms.deadlines.R
+import lk.ms.deadlines.ui.home.EventIndicator
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun LoginScreen(onLoginSuccess: () -> Unit) {
     var username by rememberSaveable { mutableStateOf("") }
@@ -91,6 +95,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             text = "Create Account",
             onClick = { /* Handle create account click */ },
         )
+
 
 
     }
