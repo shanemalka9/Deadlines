@@ -1,4 +1,4 @@
-package lk.ms.deadlines.screen.Login
+package lk.ms.deadlines.ui.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
