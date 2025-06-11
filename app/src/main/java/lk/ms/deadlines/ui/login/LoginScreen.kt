@@ -15,6 +15,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -110,7 +111,7 @@ fun TextBox(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
-        TextField(
+        OutlinedTextField(
             value = value,
             onValueChange = onTextChange,
             label = { Text(text) },
@@ -122,22 +123,23 @@ fun TextBox(
                 bottomEnd = 25.dp,
                 bottomStart = 25.dp
             ),
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color(0xFF6A8AEF),
-                unfocusedIndicatorColor = Color(0xFF5577DD),
-                focusedContainerColor = Color(0xFF778AEE),
-                unfocusedContainerColor = Color(0xFF6683E5),
-                focusedTextColor = Color(0xFFEEF2FF),
-                unfocusedTextColor = Color(0xFFD8E0FF),
-                cursorColor = Color(0xFFFF6FA9),
-                disabledIndicatorColor = Color(0xFFB088FF),
-                disabledContainerColor = Color(0xFFCEB6FF),
-                disabledTextColor = Color(0xFF9F7CE3)
+            colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFFFF8D35),      // Orange when focused/clicked
+                unfocusedBorderColor = Color.Transparent,           // Gray when not focused
+                disabledBorderColor = Color.LightGray,
+                errorBorderColor = Color.Red,
+                focusedContainerColor = Color(0xFFECECEC),   // Light gray background
+                unfocusedContainerColor = Color(0xFFECECEC),
+                cursorColor = Color(0xFFFF8D35),
+                focusedTextColor = Color(0xFF000000),
+                unfocusedTextColor = Color(0xFF000000)
             ),
-            textStyle = LocalTextStyle.current.copy(fontSize = 18.sp) // Set your desired text size here
+            textStyle = LocalTextStyle.current.copy(fontSize = 18.sp)
         )
     }
 }
+
+
 
 
 
