@@ -1,4 +1,4 @@
-package lk.shan.deadlines
+package lk.ms.deadlines
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

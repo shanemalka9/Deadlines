@@ -1,4 +1,4 @@
-package lk.shan.deadlines.screen.ui.theme
+package lk.ms.deadlines.screen.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

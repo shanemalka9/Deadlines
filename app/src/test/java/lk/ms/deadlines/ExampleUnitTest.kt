@@ -1,4 +1,4 @@
-package lk.shan.deadlines
+package lk.ms.deadlines
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package lk.shan.deadlines
+package lk.ms.deadlines
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import lk.shan.deadlines.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

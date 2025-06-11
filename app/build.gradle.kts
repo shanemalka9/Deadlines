@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "lk.shan.deadlines"
+    namespace = "lk.ms.deadlines"
     compileSdk = 35
 
     defaultConfig {
