@@ -3,10 +3,12 @@ package lk.ms.deadlines.ui.home
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,9 +22,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.time.LocalDate
@@ -31,10 +35,55 @@ import java.time.temporal.ChronoUnit
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(){
-    Spacer(modifier = Modifier.height(10.dp))
-    EventIndicator("event1","low","30 days left",{/*wde*/})
-    Spacer(modifier = Modifier.height(10.dp))
-    EventIndicator("event1","low","30 days left",{/*wde*/})
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
+    ) {
+        // Title Box
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp)
+                .background(
+                    color = Color(0xDDD9D9D9),
+                    shape = RoundedCornerShape(
+                        topStart = 0.dp,
+                        topEnd = 0.dp,
+                        bottomStart = 40.dp,
+                        bottomEnd = 40.dp
+                    )
+                ),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = "DEADLINES",
+                fontSize = 30.sp,
+                textAlign = TextAlign.Center,
+                color = Color.Black
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(0.dp, 10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+        ) {
+            // Events
+            EventIndicator(
+                eventName = "event1",
+                eventRisk = "MEDIUM",
+                timeLeft = "30 days left",
+                onClick = {/*wde*/ })
+            EventIndicator(
+                eventName = "event1",
+                eventRisk = "LOW",
+                timeLeft = "30 days left",
+                onClick = {/*wde*/ })
+        }
+    }
 }
 
 
@@ -53,12 +102,13 @@ fun EventIndicator(
         onClick = onClick, // OnClick is executed
         modifier = modifier
             .fillMaxWidth(0.9f)
-            .height(90.dp),
+            .height(90.dp)
+            .padding(0.dp, 5.dp),
         shape = RoundedCornerShape(
             topStart = 15.dp,
             topEnd = 15.dp,
             bottomStart = 15.dp,
-            bottomEnd = 10.dp
+            bottomEnd = 15.dp
         ),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0xFFE4E4E4),
@@ -119,15 +169,16 @@ fun RiskLevelIndicater(
         Text(
             text = eventRisk,
             fontSize = 18.sp,
-            textAlign = TextAlign.Left,
-            color = Color.Black,
+            textAlign = TextAlign.Center,
+            color = Color.White,
         )
     }
 }
+
 fun getColor(eventRisk: String): Color {
     return when(eventRisk.lowercase()) {
-        "low" -> Color(0xFF4CAF50)    // Green
-        "medium" -> Color(0xFFFFEB3B) // Yellow
+        "low" -> Color(0xFF2FE843)    // Green
+        "medium" -> Color(0xFF2C66C0) // Yellow
         "high" -> Color(0xFFF44336)   // Red
         else -> Color.Gray
     }
@@ -159,10 +210,15 @@ fun DeadlineProgressBar(startDate: LocalDate, endDate: LocalDate) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(12.dp),
-            color = if (progress < 0.7f) Color(0xFF4CAF50) else Color.Red,
+            color = if (progress < 0.7f) Color(0xFF732285) else Color.Red,
             trackColor = Color.Transparent,
         )
     }
 }
 
-
+@RequiresApi(Build.VERSION_CODES.O)
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    HomeScreen()
+}
