@@ -78,7 +78,7 @@ fun HomeScreen(){
         }
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .weight(1f)
                 .padding(0.dp, 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
@@ -94,6 +94,25 @@ fun HomeScreen(){
                 eventRisk = "LOW",
                 timeLeft = "30 days left",
                 onClick = {/*wde*/ })
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp, 20.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Button(
+                onClick = {/*TODO*/},
+                shape = RoundedCornerShape(50.dp)
+            ) {
+                Text(
+                    text = "+",
+                    fontSize = 48.sp,
+                    textAlign = TextAlign.Left,
+                    color = Color.Black
+                )
+            }
         }
     }
 }
