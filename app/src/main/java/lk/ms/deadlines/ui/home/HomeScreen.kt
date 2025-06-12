@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -32,6 +33,14 @@ import androidx.compose.ui.unit.sp
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
+/**
+ * TODO: Change names of priority/risk => MEDIUM to MID
+ * TODO: fix Sizing issue in Task BOx so event name does not move when change in number of letters in priority
+ * TODO: Add functionality to number of days left in event
+ * TODO: Add More Defined shadow to events or change background color of events to help differentiate from background
+ * TODO: Add animation to long event names so it has a side scroll animation
+ */
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(){
@@ -45,7 +54,7 @@ fun HomeScreen(){
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
+                .height(122.dp)
                 .background(
                     color = Color(0xDDD9D9D9),
                     shape = RoundedCornerShape(
@@ -59,9 +68,12 @@ fun HomeScreen(){
         ) {
             Text(
                 text = "DEADLINES",
-                fontSize = 30.sp,
+                fontSize = 24.sp,
                 textAlign = TextAlign.Center,
-                color = Color.Black
+                color = Color.Black,
+                modifier = Modifier
+                    .fillMaxHeight(0.6f)
+                    .padding(0.dp,40.dp,0.dp,0.dp)
             )
         }
         Column(
@@ -104,14 +116,9 @@ fun EventIndicator(
             .fillMaxWidth(0.9f)
             .height(90.dp)
             .padding(0.dp, 5.dp),
-        shape = RoundedCornerShape(
-            topStart = 15.dp,
-            topEnd = 15.dp,
-            bottomStart = 15.dp,
-            bottomEnd = 15.dp
-        ),
+        shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFE4E4E4),
+            containerColor = Color(0xFF97D6FF),
             contentColor = Color.Black
         ),
         elevation = ButtonDefaults.buttonElevation(
@@ -168,7 +175,7 @@ fun RiskLevelIndicater(
     ) {
         Text(
             text = eventRisk,
-            fontSize = 18.sp,
+            fontSize = 16.sp,
             textAlign = TextAlign.Center,
             color = Color.White,
         )
@@ -210,7 +217,7 @@ fun DeadlineProgressBar(startDate: LocalDate, endDate: LocalDate) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(12.dp),
-            color = if (progress < 0.7f) Color(0xFF732285) else Color.Red,
+            color = if (progress < 0.7f) Color(0xFF224F85) else Color.Red,
             trackColor = Color.Transparent,
         )
     }
