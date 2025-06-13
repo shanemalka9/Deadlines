@@ -43,6 +43,8 @@ import java.time.temporal.ChronoUnit
  * TODO: Add functionality to number of days left in event
  * TODO: Add More Defined shadow to events or change background color of events to help differentiate from background
  * TODO: Add animation to long event names so it has a side scroll animation
+ * TODO: Add functionality to add events
+ * TODO: Change EventIndicator to accommodate items in model
  */
 
 
