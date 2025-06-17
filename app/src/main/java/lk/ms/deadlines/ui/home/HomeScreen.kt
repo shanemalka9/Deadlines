@@ -29,8 +29,11 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -40,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import lk.ms.deadlines.model.Event
+import lk.ms.deadlines.ui.popup.EventCreateMenu
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -59,6 +63,8 @@ import java.time.temporal.ChronoUnit
 @Composable
 fun HomeScreen() {
     val eventList = remember { mutableStateListOf<Event>() }
+    var showEventMenu by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -86,15 +92,13 @@ fun HomeScreen() {
                     .padding(top = 20.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Invisible box to balance the right icons
+                // Left empty space for balance
                 Row(
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = 16.dp),
                     verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // You can leave this empty or add a logo if needed
-                }
+                ) {}
 
                 // Centered text
                 Row(
@@ -132,13 +136,10 @@ fun HomeScreen() {
                         modifier = Modifier.size(24.dp)
                     )
 
-                    Spacer(modifier = Modifier.width(12.dp)) // add mor icon if need
-
-
+                    Spacer(modifier = Modifier.width(12.dp))
                 }
             }
         }
-
 
         LazyColumn(
             modifier = Modifier
@@ -147,7 +148,6 @@ fun HomeScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
         ) {
-            // Events
             items(eventList) { event ->
                 EventIndicator(
                     eventName = event.name,
@@ -157,6 +157,7 @@ fun HomeScreen() {
                 )
             }
         }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -165,24 +166,11 @@ fun HomeScreen() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Button(
-                onClick = {
-                    val event1 = Event(
-                        name = "Kotlin Workshop",
-                        priority = "High",
-                        startDateTime = LocalDateTime.of(2025, 6, 20, 10, 0),   // June 20, 2025 at 10:00 AM
-                        endDateTime = LocalDateTime.of(2025, 6, 20, 12, 0),     // June 20, 2025 at 12:00 PM
-                        description = "A workshop to learn Kotlin basics and best practices.",
-                        location = "Tech Auditorium - Room 101",
-                        remindMe = true
-                    )
-                    eventList.add(event1)
-
-                },
+                onClick = { showEventMenu = true },
                 shape = RoundedCornerShape(50.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFF8D35)
                 )
-
             ) {
                 Text(
                     text = "+",
@@ -193,7 +181,14 @@ fun HomeScreen() {
             }
         }
     }
+
+    // Popup menu composable call
+    EventCreateMenu(
+        show = showEventMenu,
+        onDismiss = { showEventMenu = false }
+    )
 }
+
 
 
 @RequiresApi(Build.VERSION_CODES.O)
