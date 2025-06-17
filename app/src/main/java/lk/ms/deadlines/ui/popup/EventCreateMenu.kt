@@ -28,6 +28,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import lk.ms.deadlines.ui.login.TextBox
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.sp
 
 
 @Composable
@@ -36,6 +42,14 @@ fun EventCreateMenu(
     onDismiss: () -> Unit
 ) {
     var eventName by rememberSaveable { mutableStateOf("") }
+    var priorityLevel by rememberSaveable { mutableStateOf("") }
+    var type by  rememberSaveable { mutableStateOf("") }
+    var location by  rememberSaveable { mutableStateOf("") }
+
+    var startDate by  rememberSaveable { mutableStateOf("") }
+    var endDate by  rememberSaveable { mutableStateOf("") }
+
+
 
 
     AnimatedVisibility(
@@ -83,11 +97,18 @@ fun EventCreateMenu(
                 Spacer(modifier = Modifier.height(16.dp))
                 InputField(text = "Event name", eventName) { eventName= it }
                 Spacer(modifier = Modifier.height(10.dp))
-                InputField(text = "Event name", eventName) { eventName= it }
+                InputField(text = "Start Date", startDate) { startDate= it }
+                Spacer(modifier = Modifier.width(3.dp))
+                InputField(text = "End Date", endDate) { endDate= it }
                 Spacer(modifier = Modifier.height(10.dp))
-                InputField(text = "Event name", eventName) { eventName= it }
+                PriorityLevelDropdown(
+                    priorityLevel = priorityLevel,
+                    onPriorityLevelChange = { newValue -> priorityLevel = newValue }
+                )
                 Spacer(modifier = Modifier.height(10.dp))
-                InputField(text = "Event name", eventName) { eventName= it }
+                InputField(text = "Type of the Assessment", type) { type= it }
+                Spacer(modifier = Modifier.height(10.dp))
+                InputField(text = "Location", location) { location= it }
                 Spacer(modifier = Modifier.height(10.dp))
                 Button(
                     onClick = onDismiss,
@@ -146,4 +167,55 @@ fun InputField(
         )
     }
 }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PriorityLevelDropdown(
+    priorityLevel: String,
+    onPriorityLevelChange: (String) -> Unit
+) {
+    val items = listOf("LOW", "MID", "HIGH")
+
+    var expanded by remember { mutableStateOf(false) }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+        modifier = Modifier.fillMaxWidth(0.9f)
+    ) {
+        OutlinedTextField(
+            value = priorityLevel,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text("Priority Level") },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFFFF8D35),
+                unfocusedBorderColor = Color.Transparent,
+                focusedContainerColor = Color(0xFFECECEC),
+                unfocusedContainerColor = Color(0xFFECECEC),
+                cursorColor = Color(0xFFFF8D35),
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black
+            ),
+            shape = RoundedCornerShape(15.dp),
+            textStyle = LocalTextStyle.current.copy(fontSize = 18.sp),
+            modifier = Modifier.menuAnchor()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            items.forEach { item ->
+                DropdownMenuItem(
+                    text = { Text(item) },
+                    onClick = {
+                        onPriorityLevelChange(item)  // Update external state
+                        expanded = false
+                    }
+                )
+            }
+        }
+    }
+}
+
 
