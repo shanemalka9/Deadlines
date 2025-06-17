@@ -114,21 +114,36 @@ fun EventCreateMenu(
                     label = "Notification Type",
                     onPriorityLevelChange = { notificationOption = it }
                 )
-
-                Button(
-                    onClick = onDismiss,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFFF8D35),
-                        contentColor = Color.White
-                    ),
-                    modifier = Modifier.fillMaxWidth(0.5f)
+                Spacer(modifier = Modifier.height(10.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 24.dp, end = 24.dp), // Change padding values as needed
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Cancel")
+                    Button(
+                        onClick = onDismiss,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFFF8D35),
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text("Cancel")
+                    }
+
+                    Button(
+                        onClick = onDismiss,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFFF8D35),
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text("Confirm")
+                    }
                 }
 
             }
-
-
         }
     }
 }
