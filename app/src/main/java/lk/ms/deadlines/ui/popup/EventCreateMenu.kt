@@ -12,10 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.text.style.LineHeightStyle
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,13 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import lk.ms.deadlines.ui.login.TextBox
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.unit.sp
 
 
 @Composable
@@ -45,9 +36,14 @@ fun EventCreateMenu(
     var priorityLevel by rememberSaveable { mutableStateOf("") }
     var type by  rememberSaveable { mutableStateOf("") }
     var location by  rememberSaveable { mutableStateOf("") }
+    var notificationOption by rememberSaveable { mutableStateOf("") }
 
     var startDate by  rememberSaveable { mutableStateOf("") }
     var endDate by  rememberSaveable { mutableStateOf("") }
+
+    // two list that pass for dropdown
+    val prioritiesList = listOf("LOW", "MID", "HIGH")
+    val notificationOptionList = listOf("Lw", "Mgfb", "HIGdsvH")
 
 
 
@@ -101,15 +97,24 @@ fun EventCreateMenu(
                 Spacer(modifier = Modifier.width(3.dp))
                 InputField(text = "End Date", endDate) { endDate= it }
                 Spacer(modifier = Modifier.height(10.dp))
-                PriorityLevelDropdown(
-                    priorityLevel = priorityLevel,
-                    onPriorityLevelChange = { newValue -> priorityLevel = newValue }
+                Dropdown(
+                    value = priorityLevel,
+                    itemsList = prioritiesList,
+                    label = "Priority Level",
+                    onPriorityLevelChange = { priorityLevel = it }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 InputField(text = "Type of the Assessment", type) { type= it }
                 Spacer(modifier = Modifier.height(10.dp))
                 InputField(text = "Location", location) { location= it }
                 Spacer(modifier = Modifier.height(10.dp))
+                Dropdown(
+                    value = notificationOption,
+                    itemsList = notificationOptionList,
+                    label = "Notification Type",
+                    onPriorityLevelChange = { notificationOption = it }
+                )
+
                 Button(
                     onClick = onDismiss,
                     colors = ButtonDefaults.buttonColors(
@@ -169,12 +174,12 @@ fun InputField(
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PriorityLevelDropdown(
-    priorityLevel: String,
+fun Dropdown(
+    value: String,
+    itemsList: List<String>,
+    label:String,
     onPriorityLevelChange: (String) -> Unit
 ) {
-    val items = listOf("LOW", "MID", "HIGH")
-
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(
@@ -183,10 +188,10 @@ fun PriorityLevelDropdown(
         modifier = Modifier.fillMaxWidth(0.9f)
     ) {
         OutlinedTextField(
-            value = priorityLevel,
+            value = value,
             onValueChange = {},
             readOnly = true,
-            label = { Text("Priority Level") },
+            label = { Text(label) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFFFF8D35),
@@ -205,11 +210,11 @@ fun PriorityLevelDropdown(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            items.forEach { item ->
+            itemsList.forEach { item ->           // Use the parameter name here
                 DropdownMenuItem(
                     text = { Text(item) },
                     onClick = {
-                        onPriorityLevelChange(item)  // Update external state
+                        onPriorityLevelChange(item)
                         expanded = false
                     }
                 )
@@ -217,5 +222,6 @@ fun PriorityLevelDropdown(
         }
     }
 }
+
 
 
