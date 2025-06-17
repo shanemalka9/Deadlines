@@ -13,13 +13,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -60,13 +65,12 @@ fun HomeScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
     ) {
-        // Title Box
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(122.dp)
+                .height(150.dp)
                 .background(
-                    color = Color(0xDDD9D9D9),
+                    color = Color(0xFFD9D9D9),
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
                         topEnd = 0.dp,
@@ -74,18 +78,68 @@ fun HomeScreen() {
                         bottomEnd = 40.dp
                     )
                 ),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "DEADLINES",
-                fontSize = 24.sp,
-                textAlign = TextAlign.Center,
-                color = Color.Black,
+            Row(
                 modifier = Modifier
-                    .fillMaxHeight(0.6f)
-                    .padding(0.dp, 40.dp, 0.dp, 0.dp)
-            )
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Invisible box to balance the right icons
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // You can leave this empty or add a logo if needed
+                }
+
+                // Centered text
+                Row(
+                    modifier = Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "DEAD",
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center,
+                        color = Color(0xFF000000),
+                        modifier = Modifier.padding(end = 4.dp)
+                    )
+                    Text(
+                        text = "LINES",
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center,
+                        color = Color(0xFFF90000)
+                    )
+                }
+
+                // Right icons
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Settings Icon",
+                        tint = Color.Gray,
+                        modifier = Modifier.size(24.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(12.dp)) // add mor icon if need
+
+
+                }
+            }
         }
+
+
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
@@ -161,7 +215,7 @@ fun EventIndicator(
             .padding(0.dp, 5.dp),
         shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF97D6FF),
+            containerColor = Color(0xFFE7E7E7),
             contentColor = Color.Black
         ),
         elevation = ButtonDefaults.buttonElevation(
