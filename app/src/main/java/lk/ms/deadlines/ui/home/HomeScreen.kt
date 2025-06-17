@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Surface
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import lk.ms.deadlines.model.Event
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
 /**
@@ -104,19 +106,35 @@ fun HomeScreen() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp, 20.dp),
+                .padding(0.dp, 75.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Button(
-                onClick = {/*TODO*/ },
-                shape = RoundedCornerShape(50.dp)
+                onClick = {
+                    val event1 = Event(
+                        name = "Kotlin Workshop",
+                        priority = "High",
+                        startDateTime = LocalDateTime.of(2025, 6, 20, 10, 0),   // June 20, 2025 at 10:00 AM
+                        endDateTime = LocalDateTime.of(2025, 6, 20, 12, 0),     // June 20, 2025 at 12:00 PM
+                        description = "A workshop to learn Kotlin basics and best practices.",
+                        location = "Tech Auditorium - Room 101",
+                        remindMe = true
+                    )
+                    eventList.add(event1)
+
+                },
+                shape = RoundedCornerShape(50.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFFF8D35)
+                )
+
             ) {
                 Text(
                     text = "+",
-                    fontSize = 48.sp,
+                    fontSize = 50.sp,
                     textAlign = TextAlign.Left,
-                    color = Color.Black
+                    color = Color.White
                 )
             }
         }
@@ -242,7 +260,7 @@ fun DeadlineProgressBar(startDate: LocalDate, endDate: LocalDate) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(12.dp),
-            color = if (progress < 0.7f) Color(0xFF224F85) else Color.Red,
+            color = if (progress < 0.7f) Color(0xFF2DE720) else Color.Red,
             trackColor = Color.Transparent,
         )
     }
