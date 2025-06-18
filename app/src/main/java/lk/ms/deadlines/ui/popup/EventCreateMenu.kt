@@ -26,7 +26,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 
+/*
+pop up menu that use for create a event
+thi menu will display when user click add event button on home page
+this composable hold multi-pal state var that hold  user data about event and use that data to create event objects
 
+*/
 @Composable
 fun EventCreateMenu(
     show: Boolean,
@@ -37,16 +42,12 @@ fun EventCreateMenu(
     var type by  rememberSaveable { mutableStateOf("") }
     var location by  rememberSaveable { mutableStateOf("") }
     var notificationOption by rememberSaveable { mutableStateOf("") }
-
     var startDate by  rememberSaveable { mutableStateOf("") }
     var endDate by  rememberSaveable { mutableStateOf("") }
 
     // two list that pass for dropdown
     val prioritiesList = listOf("LOW", "MID", "HIGH")
     val notificationOptionList = listOf("Lw", "Mgfb", "HIGdsvH")
-
-
-
 
     AnimatedVisibility(
         visible = show,
@@ -56,12 +57,12 @@ fun EventCreateMenu(
             .fillMaxSize()
             .wrapContentHeight(align = Alignment.Bottom)
     ) {
+        // box that act as a white colour background for other component
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(900.dp)
                 .background(Color.White),
-            //contentAlignment = Alignment.Center
         ) {
             Column(
                 modifier = Modifier
