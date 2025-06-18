@@ -26,7 +26,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 
+/*
+pop up menu that use for create a event
+thi menu will display when user click add event button on home page
+this composable hold multi-pal state var that hold  user data about event and use that data to create event objects
 
+*/
 @Composable
 fun EventCreateMenu(
     show: Boolean,
@@ -37,16 +42,12 @@ fun EventCreateMenu(
     var type by  rememberSaveable { mutableStateOf("") }
     var location by  rememberSaveable { mutableStateOf("") }
     var notificationOption by rememberSaveable { mutableStateOf("") }
-
     var startDate by  rememberSaveable { mutableStateOf("") }
     var endDate by  rememberSaveable { mutableStateOf("") }
 
     // two list that pass for dropdown
     val prioritiesList = listOf("LOW", "MID", "HIGH")
     val notificationOptionList = listOf("Lw", "Mgfb", "HIGdsvH")
-
-
-
 
     AnimatedVisibility(
         visible = show,
@@ -56,12 +57,12 @@ fun EventCreateMenu(
             .fillMaxSize()
             .wrapContentHeight(align = Alignment.Bottom)
     ) {
+        // box that act as a white colour background for other component
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(900.dp)
                 .background(Color.White),
-            //contentAlignment = Alignment.Center
         ) {
             Column(
                 modifier = Modifier
@@ -69,10 +70,11 @@ fun EventCreateMenu(
                     .padding(0.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // second box that act as a gray colour container that place top of the screen
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(150.dp)
+                        .height(150.dp)// size of the second container
                         .background(
                             color = Color(0xFFD9D9D9),
                             shape = RoundedCornerShape(
@@ -89,14 +91,18 @@ fun EventCreateMenu(
                         fontSize = 20.sp,
                         color = Color.Black )
                 }
-
+                // all other component will place here add anything you want
                 Spacer(modifier = Modifier.height(16.dp))
+                // input field for event name
                 InputField(text = "Event name", eventName) { eventName= it }
                 Spacer(modifier = Modifier.height(10.dp))
+                // input field for start date (assigned to @shan for improve later)
                 InputField(text = "Start Date", startDate) { startDate= it }
                 Spacer(modifier = Modifier.width(3.dp))
+                // input field for end date (assigned to @shan for improve later)
                 InputField(text = "End Date", endDate) { endDate= it }
                 Spacer(modifier = Modifier.height(10.dp))
+                // priority level dropdown
                 Dropdown(
                     value = priorityLevel,
                     itemsList = prioritiesList,
@@ -104,10 +110,13 @@ fun EventCreateMenu(
                     onPriorityLevelChange = { priorityLevel = it }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
+
                 InputField(text = "Type of the Assessment", type) { type= it }
                 Spacer(modifier = Modifier.height(10.dp))
+
                 InputField(text = "Location", location) { location= it }
                 Spacer(modifier = Modifier.height(10.dp))
+                // notification option dropdown
                 Dropdown(
                     value = notificationOption,
                     itemsList = notificationOptionList,
@@ -115,13 +124,15 @@ fun EventCreateMenu(
                     onPriorityLevelChange = { notificationOption = it }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 24.dp, end = 24.dp), // Change padding values as needed
+                        .padding(start = 24.dp, end = 24.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // cancel button
                     Button(
                         onClick = onDismiss,
                         colors = ButtonDefaults.buttonColors(
@@ -131,7 +142,7 @@ fun EventCreateMenu(
                     ) {
                         Text("Cancel")
                     }
-
+                    // confirm button
                     Button(
                         onClick = onDismiss,
                         colors = ButtonDefaults.buttonColors(
@@ -147,12 +158,12 @@ fun EventCreateMenu(
         }
     }
 }
+
 @Composable
 fun InputField(
     text: String,
     value: String,
     onTextChange: (String) -> Unit
-
 ) {
     Box(
         modifier = Modifier.fillMaxWidth(1.0f),
@@ -182,11 +193,11 @@ fun InputField(
                 focusedTextColor = Color(0xFF000000),
                 unfocusedTextColor = Color(0xFF000000)
             ),
-
             textStyle = LocalTextStyle.current.copy(fontSize = 18.sp)
         )
     }
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Dropdown(
@@ -225,7 +236,7 @@ fun Dropdown(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            itemsList.forEach { item ->           // Use the parameter name here
+            itemsList.forEach { item ->
                 DropdownMenuItem(
                     text = { Text(item) },
                     onClick = {
