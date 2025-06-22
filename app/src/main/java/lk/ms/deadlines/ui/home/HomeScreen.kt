@@ -43,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import lk.ms.deadlines.model.Event
+import lk.ms.deadlines.model.eventList
 import lk.ms.deadlines.ui.popup.EventCreateMenu
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -62,7 +63,7 @@ import java.time.temporal.ChronoUnit
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen() {
-    val eventList = remember { mutableStateListOf<Event>() }
+    //val eventList = remember { mutableStateListOf<Event>() }
     var showEventMenu by remember { mutableStateOf(false) }
 
     Column(
