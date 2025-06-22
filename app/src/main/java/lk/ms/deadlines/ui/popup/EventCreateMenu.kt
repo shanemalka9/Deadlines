@@ -1,5 +1,7 @@
 package lk.ms.deadlines.ui.popup
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -25,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import lk.ms.deadlines.model.Event
+import lk.ms.deadlines.model.eventList
+import java.time.LocalDateTime
 
 /*
 pop up menu that use for create a event
@@ -32,6 +37,7 @@ thi menu will display when user click add event button on home page
 this composable hold multi-pal state var that hold  user data about event and use that data to create event objects
 
 */
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun EventCreateMenu(
     show: Boolean,
@@ -39,7 +45,7 @@ fun EventCreateMenu(
 ) {
     var eventName by rememberSaveable { mutableStateOf("") }
     var priorityLevel by rememberSaveable { mutableStateOf("") }
-    var type by  rememberSaveable { mutableStateOf("") }
+    var description by  rememberSaveable { mutableStateOf("") }
     var location by  rememberSaveable { mutableStateOf("") }
     var notificationOption by rememberSaveable { mutableStateOf("") }
     var startDate by  rememberSaveable { mutableStateOf("") }
@@ -111,7 +117,7 @@ fun EventCreateMenu(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
 
-                InputField(text = "Type of the Assessment", type) { type= it }
+                InputField(text = "Description", description) { description= it }
                 Spacer(modifier = Modifier.height(10.dp))
 
                 InputField(text = "Location", location) { location= it }
@@ -144,7 +150,18 @@ fun EventCreateMenu(
                     }
                     // confirm button
                     Button(
-                        onClick = onDismiss,
+                        onClick = {
+                            createEvent(
+                                name = eventName,
+                                priorityLevel = priorityLevel,
+                                description = description,
+                                location = location,
+                                notification = true, // to be done
+                                startDate = "2025-06-21T11:00",
+                                endDate = "2025-07-17T14:00"
+                            )
+                            onDismiss() // closes the menu
+                        },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFFFF8D35),
                             contentColor = Color.White
@@ -250,4 +267,29 @@ fun Dropdown(
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
+fun createEvent(
+    name: String,
+    priorityLevel: String,
+    description: String,
+    location: String,
+    notification: Boolean,
+    startDate: String,
+    endDate: String
+) {
+    val start = LocalDateTime.parse(startDate)
+    val end = LocalDateTime.parse(endDate)
 
+    val event = Event(
+        name = name,
+        priority = priorityLevel,
+        startDateTime = start,
+        endDateTime = end,
+        description = description,
+        location = location,
+        remindMe = notification
+    )
+
+    // Optional: Do something with the event
+    eventList.add(event)
+}
